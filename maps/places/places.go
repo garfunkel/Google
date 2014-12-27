@@ -1,3 +1,4 @@
+// Package places implements Google's Places API.
 package places
 
 import (
@@ -5,15 +6,18 @@ import (
 	"net/url"
 )
 
+// Geometry represents location geometry.
 type Geometry struct {
 	Location Location `json:"location"`
 }
 
+// Location represents latlng coordinates.
 type Location struct {
 	Latitude  float64 `json:"lat"`
 	Longitude float64 `json:"lng"`
 }
 
+// Result structure for search results.
 type Result struct {
 	Geometry  Geometry `json:"geometry"`
 	Icon      string   `json:"icon"`
@@ -42,6 +46,7 @@ type Result struct {
 	} `json:"alt_ids"`
 }
 
+// SearchResponse structure for a group of search results.
 type SearchResponse struct {
 	HTMLAttributions []string `json:"html_attributions"`
 	NextPageToken    string   `json:"next_page_token"`
@@ -49,6 +54,7 @@ type SearchResponse struct {
 	Status           string   `json:"status"`
 }
 
+// EncodeValues encodes Location into URL form.
 func (location Location) EncodeValues(key string, v *url.Values) error {
 	v.Set(key, fmt.Sprintf("%v,%v", location.Latitude, location.Longitude))
 
