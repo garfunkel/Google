@@ -2,7 +2,7 @@ package nearbysearch
 
 import (
 	"errors"
-	"github.com/garfunkel/go-google/maps/places"
+	"github.com/garfunkel/go-google/maps"
 	"log"
 	"testing"
 )
@@ -10,7 +10,7 @@ import (
 func TestGetClosestPlaces(t *testing.T) {
 	requiredParams := RequiredParams{
 		APIKey: "AIzaSyC50lfM-BNpgJMXesZ9qV4Jx6ubTMmwwxA",
-		Location: places.Location{
+		Location: maps.LatLngLocation{
 			Latitude:  -33.859235,
 			Longitude: 151.068028,
 		},

@@ -1,9 +1,10 @@
-// Package geocode implements simple geocoding functions.
+// Package geocoding implements simple geocoding functions.
 package geocoding
 
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/garfunkel/go-google/maps"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -23,20 +24,11 @@ type Result struct {
 	} `json:"address_components"`
 	FormattedAddress string `json:"formatted_address"`
 	Geometry         struct {
-		Location struct {
-			Latitude  float64 `json:"lat"`
-			Longitude float64 `json:"lng"`
-		} `json:"location"`
-		LocationType string `json:"location_type"`
+		Location     maps.LatLngLocation `json:"location"`
+		LocationType string              `json:"location_type"`
 		ViewPort     struct {
-			NorthEast struct {
-				Latitude  float64 `json:"lat"`
-				Longitude float64 `json:"lng"`
-			} `json:"northeast"`
-			SouthWest struct {
-				Latitude  float64 `json:"lat"`
-				Longitude float64 `json:"lng"`
-			} `json:"southwest"`
+			NorthEast maps.LatLngLocation `json:"northeast"`
+			SouthWest maps.LatLngLocation `json:"southwest"`
 		} `json:"viewport"`
 	} `json:"geometry"`
 	Types []string `json:"types"`

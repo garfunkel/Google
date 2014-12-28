@@ -4,6 +4,7 @@ package nearbysearch
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/garfunkel/go-google/maps"
 	"github.com/garfunkel/go-google/maps/places"
 	"github.com/google/go-querystring/query"
 	"io/ioutil"
@@ -22,8 +23,8 @@ type PipeList []string
 
 // RequiredParams represents params required by the API.
 type RequiredParams struct {
-	APIKey   string          `url:"key"`
-	Location places.Location `url:"location"`
+	APIKey   string        `url:"key"`
+	Location maps.Location `url:"location"`
 }
 
 // OptionalRadiusParam optional param.
@@ -89,7 +90,7 @@ func (pipeList PipeList) EncodeValues(key string, v *url.Values) error {
 }
 
 // NearbySearch performs a search using Google's API.
-func NearbySearch(requiredParams *RequiredParams, optionalParams ...interface{}) (searchResponse *places.SearchResponse, err error) {
+func NearbySearch(requiredParams *RequiredParams, optionalParams ...interface{}) (searchResponse *places.Response, err error) {
 	values, err := query.Values(requiredParams)
 
 	if err != nil {
@@ -108,7 +109,7 @@ func NearbySearch(requiredParams *RequiredParams, optionalParams ...interface{})
 		params += fmt.Sprintf("&%v", values.Encode())
 	}
 
-	searchResponse = new(places.SearchResponse)
+	searchResponse = new(places.Response)
 
 	url := fmt.Sprintf("%v?%v", APIURL, params)
 	response, err := http.Get(url)
